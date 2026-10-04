@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "descripcion": "Medidas del boligrafo de clic (Diseno 3) para modelar en Solid Edge. Todas en milimetros.",
+    "fecha": "2026-10-03",
+    "niveles_de_fuente": {
+      "normativo": "Sale de una norma ISO (dato oficial).",
+      "comercial": "Sale de la ficha o listado de un producto comercial real.",
+      "estimado": "No hay ficha publica; se calculo a partir de los datos normativos/comerciales para que las piezas encajen."
+    },
+    "referencia_de_diseno": "Boligrafo de clic tipo Parker Jotter, que usa el cartucho ISO 12757 tipo G2 (el 'Parker-style G2 refill').",
+    "convencion_perfiles": "perfil_mm = medio perfil para revolucion: x = radio (distancia al eje), y = posicion axial. Poligono cerrado en orden; el ultimo punto se une con el primero."
+  },
+
+  "fuentes": {
+    "ISO_12757_1_2017": {
+      "titulo": "ISO 12757-1:2017 Ball point pens and refills - Part 1: General use, apartado 4.2 'Shapes and dimensions of refills', Tabla 3 (tipos G1 y G2)",
+      "url": "https://cdn.standards.iteh.ai/samples/73283/1b0bbd644c4d451d877b3aeca1354456/ISO-12757-1-2017.pdf",
+      "url_catalogo": "https://www.iso.org/standard/73283.html",
+      "nota": "Muestra oficial (preview) publicada por iTeh Standards con las tablas de dimensiones completas."
+    },
+    "Wikipedia_Parker_Jotter": {
+      "titulo": "Parker Jotter - Wikipedia (confirma que el Jotter usa el cartucho Parker-style G2)",
+      "url": "https://en.wikipedia.org/wiki/Parker_Jotter"
+    },
+    "Parker_Jotter_ficha_1101": {
+      "titulo": "Ficha de producto Parker Jotter (tienda Hobonichi / 1101.com): largo 129 mm, diametro 9.6 mm, peso 15 g",
+      "url": "https://www.1101.com/store/techo/en/2019/pc/detail_toolstoys/s_jotterct.html",
+      "nota": "La pagina ya no carga (404); el dato se obtuvo del indice del buscador. Coincide con la ficha de OnTime Supplies."
+    },
+    "Parker_Jotter_ficha_OnTime": {
+      "titulo": "Ficha Parker Jotter Core (OnTime Supplies): body length 5.0 in (128 mm), body diameter 0.39 in (10 mm), grip diameter 0.36 in (9.1 mm)",
+      "url": "https://www.ontimesupplies.com/par1953184-jotter-retractable-ballpoint-pen-black-barrel-w-black-ink-fine.html"
+    },
+    "Resortes_boligrafo_comerciales": {
+      "titulo": "Listado comercial de resortes para boligrafo: alambre 0.4 mm, diametro exterior 4-5.5 mm, largo libre 18-35 mm (ejemplo 0.4 x 4.5 x 18 mm)",
+      "url": "https://www.ebay.de/itm/266874949560",
+      "nota": "No existe norma para el resorte; es un rango de producto comercial generico, no de una marca."
+    }
+  },
+
+  "cartucho": {
+    "tipo": "ISO 12757 G2 (Parker-style)",
+    "cotas_iso_tabla3_G2": {
+      "a": { "valor_mm": 98.1, "tolerancia": "+0.35 / -0.40" },
+      "b": { "valor_mm": 6.0, "tolerancia": "+0.1 / -0.2" },
+      "c": { "valor_mm": 2.54, "tolerancia": "+0.04 / -0.03" },
+      "d": { "valor_mm": 6.2, "tolerancia": "+/-0.2" },
+      "e": { "valor_mm": 23.2, "tolerancia": "+/-1" },
+      "f": { "valor_mm": 5.8, "tolerancia": "+/-0.1" },
+      "g": { "valor_mm": 2.4, "tolerancia": "+/-0.1" },
+      "h": { "valor_mm": 0.6, "tolerancia": "+/-0.2" },
+      "fuente": "ISO_12757_1_2017",
+      "nivel": "normativo"
+    },
+    "largo_mm": { "valor": 98.1, "cota_iso": "a", "fuente": "ISO_12757_1_2017", "nivel": "normativo" },
+    "diam_ext_mm": { "valor": 6.0, "cota_iso": "b", "fuente": "ISO_12757_1_2017", "nivel": "normativo" },
+    "diam_punta_mm": { "valor": 2.54, "cota_iso": "c", "fuente": "ISO_12757_1_2017", "nivel": "normativo" },
+    "largo_seccion_punta_mm": { "valor": 23.2, "cota_iso": "e", "fuente": "ISO_12757_1_2017", "nivel": "normativo" },
+    "diam_hombro_punta_mm": { "valor": 5.8, "cota_iso": "f", "fuente": "ISO_12757_1_2017", "nivel": "normativo" },
+    "largo_cilindro_punta_mm": { "valor": 6.2, "cota_iso": "d", "fuente": "ISO_12757_1_2017", "nivel": "normativo" },
+    "advertencia": "Los VALORES de a-h son oficiales. Que letra corresponde a que cota (largo, diametro, etc.) se interpreto sin ver la Figura 4 de la norma (es una imagen); a=largo total y b=diametro del tubo son seguros, la asignacion de c, d, e, f es interpretacion. Verificar contra la Figura 4 si se tiene la norma.",
+    "perfil_mm": [[0, 0], [1.27, 0], [1.27, 6.2], [2.9, 23.2], [3.0, 23.2], [3.0, 98.1], [0, 98.1]],
+    "perfil_nivel": "estimado (simplificado a partir de las cotas ISO)"
+  },
+
+  "boligrafo_referencia": {
+    "modelo": "Parker Jotter (clic, cartucho G2)",
+    "largo_total_mm": { "valor": 129, "fuente": "Parker_Jotter_ficha_1101", "nivel": "comercial" },
+    "diam_cuerpo_mm": { "valor": 9.6, "fuente": "Parker_Jotter_ficha_1101", "nivel": "comercial", "nota": "OnTime Supplies da 10 mm para el Jotter Core; se usa 9.6." },
+    "diam_grip_mm": { "valor": 9.1, "fuente": "Parker_Jotter_ficha_OnTime", "nivel": "comercial" },
+    "peso_g": { "valor": 15, "fuente": "Parker_Jotter_ficha_1101", "nivel": "comercial", "nota": "Version de acero; la de plastico ronda 11 g." },
+    "tipo_cartucho": { "valor": "G2", "fuente": "Wikipedia_Parker_Jotter", "nivel": "comercial" }
+  },
+
+  "D3_clic": {
+    "suma_de_largos_visibles": "cuerpo_inferior visible 52 + cuerpo_superior 68 + pulsador asomado 9 = 129 mm (largo total comercial)",
+
+    "cuerpo_inferior": {
+      "descripcion": "Punta conica fija con salida del cartucho y espiga de union al cuerpo superior.",
+      "largo_mm": { "valor": 60, "nota": "52 visibles + 8 de espiga que entra en el cuerpo superior", "nivel": "estimado" },
+      "diam_ext_mm": { "valor": 9.6, "fuente": "Parker_Jotter_ficha_1101", "nivel": "comercial" },
+      "diam_int_mm": { "valor": 6.6, "nivel": "estimado", "nota": "Cartucho de 6.0 (ISO b) + 0.6 de holgura" },
+      "diam_orificio_punta_mm": { "valor": 3.0, "nivel": "estimado", "nota": "Mayor que la punta de 2.54 (ISO c)" },
+      "diam_ext_en_punta_mm": { "valor": 4.5, "nivel": "estimado" },
+      "largo_cono_mm": { "valor": 14, "nivel": "estimado" },
+      "espiga": { "diam_ext_mm": 8.0, "largo_mm": 8, "nivel": "estimado", "nota": "Representa la rosca de union; el MCP no puede hacer roscas sobre cilindros existentes." },
+      "perfil_mm": [[1.5, 0], [2.25, 0], [4.8, 14], [4.8, 52], [4.0, 52], [4.0, 60], [3.3, 60], [3.3, 14], [1.5, 2]]
+    },
+
+    "cuerpo_superior": {
+      "descripcion": "Tubo donde corren la leva y el pulsador; recibe la espiga del cuerpo inferior.",
+      "largo_mm": { "valor": 68, "nivel": "estimado" },
+      "diam_ext_mm": { "valor": 9.6, "fuente": "Parker_Jotter_ficha_1101", "nivel": "comercial" },
+      "diam_int_mm": { "valor": 7.0, "nivel": "estimado", "nota": "Leva de 6.6 + holgura" },
+      "alojamiento_espiga": { "diam_mm": 8.0, "profundidad_mm": 8, "nivel": "estimado" },
+      "orificio_pulsador": { "diam_mm": 6.2, "largo_mm": 4, "nivel": "estimado" },
+      "perfil_mm": [[4.0, 0], [4.8, 0], [4.8, 68], [3.1, 68], [3.1, 64], [3.5, 64], [3.5, 8], [4.0, 8]]
+    },
+
+    "pulsador": {
+      "descripcion": "Boton que se presiona; la pestana inferior impide que se salga por el orificio de 6.2.",
+      "largo_mm": { "valor": 20, "nivel": "estimado" },
+      "largo_asomado_mm": { "valor": 9, "nivel": "estimado" },
+      "diam_ext_mm": { "valor": 6.0, "nivel": "estimado" },
+      "pestana": { "diam_mm": 6.8, "largo_mm": 2, "nivel": "estimado" },
+      "perfil_mm": [[0, 0], [3.4, 0], [3.4, 2], [3.0, 2], [3.0, 20], [0, 20]]
+    },
+
+    "leva": {
+      "descripcion": "Rotor con dientes que alterna entre trabado (punta afuera) y libre (punta adentro).",
+      "largo_mm": { "valor": 10, "nivel": "estimado" },
+      "diam_ext_mm": { "valor": 6.6, "nivel": "estimado", "nota": "Cabe en el interior de 7.0 del cuerpo superior" },
+      "dientes": { "cantidad": 8, "radio_punta_mm": 3.3, "radio_raiz_mm": 2.7, "altura_mm": 1.5, "nivel": "estimado" },
+      "carrera_clic_mm": { "valor": 3, "nivel": "estimado" },
+      "perfil_mm": [[0, 0], [3.3, 0], [3.3, 10], [0, 10]]
+    },
+
+    "resorte": {
+      "descripcion": "Resorte de compresion entre el hombro del cartucho y el cono interior de la punta.",
+      "diam_ext_mm": { "valor": 4.5, "fuente": "Resortes_boligrafo_comerciales", "nivel": "comercial" },
+      "diam_alambre_mm": { "valor": 0.4, "fuente": "Resortes_boligrafo_comerciales", "nivel": "comercial" },
+      "diam_int_mm": { "valor": 3.7, "nivel": "estimado", "nota": "4.5 - 2 x 0.4" },
+      "largo_libre_mm": { "valor": 18, "fuente": "Resortes_boligrafo_comerciales", "nivel": "comercial" },
+      "espiras": { "valor": 10, "nivel": "estimado" },
+      "paso_mm": { "valor": 1.8, "nivel": "estimado", "nota": "18 / 10" },
+      "material": { "valor": "acero inoxidable para resortes", "nivel": "estimado" }
+    },
+
+    "cartucho": { "ver": "cartucho (seccion raiz). Mismo archivo, renombrado d3_cartucho.par." },
+
+    "clip": {
+      "descripcion": "Lamina con pestana que se sujeta en la parte alta del cuerpo superior.",
+      "largo_mm": { "valor": 45, "nivel": "estimado" },
+      "ancho_mm": { "valor": 4, "nivel": "estimado" },
+      "espesor_mm": { "valor": 0.8, "nivel": "estimado" },
+      "pestana_mm": { "valor": 2.0, "nivel": "estimado" },
+      "perfil_lateral_mm": [[0, 0], [0.8, 0], [0.8, 45], [-2.0, 45], [-2.0, 44.2], [0, 44.2]],
+      "nota": "perfil_lateral_mm NO se revoluciona: se extruye simetrico 4 mm (el ancho)."
+    }
+  }
+}
