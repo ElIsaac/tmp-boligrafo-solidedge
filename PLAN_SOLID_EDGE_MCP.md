@@ -270,7 +270,7 @@ Las URL están en `medidas.json` → `fuentes`.
 
 ## 7. Actualizar el Word (`Practica_Boligrafo_Retractil.docx`)
 
-Antes de editarlo, haz una copia `Practica_Boligrafo_Retractil.original.docx`. Edita con python-docx:
+Edítalo en su lugar, sin crear copias; el original queda en el historial de git del repo. Usa python-docx:
 `uv run --with python-docx python script.py`. Conserva los estilos existentes (Heading1, Heading2 y Normal).
 
 **Qué cambiar con datos reales del diseño:**
