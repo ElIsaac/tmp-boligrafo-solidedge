@@ -10,6 +10,8 @@ Alcance: solo el Diseño 3 (clic con resorte), que tiene 7 piezas. Los diseños 
 Practica_Boligrafo/
 ├── medidas.json
 ├── PLAN_SOLID_EDGE_MCP.md      ← este archivo
+├── Practica_Boligrafo_Retractil.docx   ← el Word de la práctica (se actualiza en la fase 7)
+├── capturar_ventana.ps1        ← captura la ventana COMPLETA de Solid Edge
 └── D3_clic/
     ├── d3_cartucho.par
     ├── d3_cuerpo_inferior.par
@@ -18,12 +20,24 @@ Practica_Boligrafo/
     ├── d3_leva.par
     ├── d3_resorte.par
     ├── d3_clip.par
-    └── capturas/                ← PNG para el Word
+    └── capturas/                ← PNG de la ventana completa de Solid Edge, para el Word
 ```
 
 ---
 
-## 0. Instalación del MCP (una sola vez)
+## 0. Verificar el MCP (probablemente ya está instalado)
+
+**Primero verifica y no reinstales si ya funciona:**
+1. Corre `claude mcp list` y revisa `/mcp`. Busca un servidor de Solid Edge; puede tener otro nombre, como `solidedge` o `SolidEdge`.
+2. Si aparece conectado, llama a `manage_connection(action="connect")`. Si responde sin `"error"`, el MCP
+   está listo: **sáltate la instalación** y ve directo a la sección 1.
+3. Comprueba que sea el MCP correcto (tylerwagler/SolidEdge-MCP): debe tener herramientas `manage_sketch`, `draw`,
+   `create_revolve` y `create_helix`. Si es otro MCP de Solid Edge con herramientas distintas, avisa al usuario antes de seguir.
+4. Si existe pero falla al conectar: confirma que Solid Edge esté abierto, revisa con `claude mcp get <nombre>`
+   en qué ruta está instalado y ejecuta allí `uv sync --all-extras`.
+5. Si no aparece ningún MCP de Solid Edge, haz la instalación de abajo.
+
+### Instalación (solo si la verificación falló)
 
 Requisitos: Windows 10/11, Solid Edge 2025 o 2026 instalado, con licencia y abierto al menos una vez
 (así registra el servidor COM), Python 3.11+ y `uv`.
@@ -112,7 +126,13 @@ Para cada pieza que tiene `perfil_mm` en el JSON:
 8. create_revolve(method="finite", angle=360)             # si falla, probar method="full"
 9. camera_control(action="set_orientation", view="Iso") y luego camera_control(action="zoom_fit")
 10. save_document(method="save", file_path=".../D3_clic/d3_<pieza>.par")
-11. export_file(format="image", file_path=".../D3_clic/capturas/d3_<pieza>_3d.png", width=1600, height=1200)
+11. Captura de la VENTANA COMPLETA de Solid Edge (con la cinta, el árbol PathFinder y la vista), no solo del modelo:
+      powershell -ExecutionPolicy Bypass -File <carpeta>/capturar_ventana.ps1 -Salida "<carpeta>/D3_clic/capturas/d3_<pieza>_3d.png"
+    El script maximiza Solid Edge, lo pone al frente y guarda el PNG. No uses export_file(format="image"),
+    porque solo renderiza el modelo, sin la interfaz.
+    Para que se vea el boceto: también toma d3_<pieza>_boceto.png con el boceto visible (vista Front,
+    camera_control(action="set_orientation", view="Front") + zoom_fit). Si el usuario ya puso las cotas inteligentes, toma la
+    captura después de eso.
 12. Verificar: leer el recurso solidedge://mass-properties y comparar el volumen con el esperado
     (ver la tabla de la sección 4). Si difiere más de un 5 %, algo quedó mal dibujado.
 ```
@@ -235,8 +255,8 @@ antes de colocarlas. No uses patrones ni simetrías de ensamble porque dan E_ACC
 ## 6. Entregables y cierre
 
 1. Siete archivos `.par` en `D3_clic/` con los nombres de la convención.
-2. Capturas en `D3_clic/capturas/`: la vista 3D (generada por el MCP) y el boceto acotado (tomado a mano
-   después de poner las cotas inteligentes, opción A del punto 1.8).
+2. Capturas en `D3_clic/capturas/`, todas de la ventana completa de Solid Edge con `capturar_ventana.ps1`:
+   `d3_<pieza>_boceto.png` y `d3_<pieza>_3d.png`.
 3. Comprobar que cada `.par` coincide con `medidas.json` (sección 4 y el rango de la pieza).
 4. En el Word, en la tabla de medidas, poner una columna **Fuente** con el `nivel` de cada dato
    (normativo / comercial / estimado) y citar:
@@ -245,3 +265,40 @@ antes de colocarlas. No uses patrones ni simetrías de ensamble porque dan E_ACC
    - Listado comercial de resortes (alambre 0.4, Ø ext 4.5, largo 18)
 
 Las URL están en `medidas.json` → `fuentes`.
+
+---
+
+## 7. Actualizar el Word (`Practica_Boligrafo_Retractil.docx`)
+
+Antes de editarlo, haz una copia `Practica_Boligrafo_Retractil.original.docx`. Edita con python-docx:
+`uv run --with python-docx python script.py`. Conserva los estilos existentes (Heading1, Heading2 y Normal).
+
+**Qué cambiar con datos reales del diseño:**
+1. **"Piezas que lo componen"**: el Word lista 6 piezas, pero el diseño tiene 7. Agrega la **Leva** (rotor con dientes
+   que traba el cartucho en posición de escritura y lo libera al siguiente clic) y renumera. Nota que el
+   cartucho es tipo ISO 12757 G2 (estilo Parker).
+2. **Tabla "Medidas obtenidas"**: los valores actuales (75, 65, 105, etc.) NO coinciden con el diseño. Reemplázalos
+   con `medidas.json` (sección `D3_clic` y `cartucho`), agrega la fila **Leva** y una columna **Fuente**
+   con el nivel (Normativo ISO 12757-1 / Comercial Parker Jotter / Estimado). Valores:
+   cuerpo superior 68 / Ø9.6 / Ø7.0; cuerpo inferior 60 / Ø9.6 / Ø6.6; pulsador 20 / Ø6.0 / no aplica;
+   leva 10 / Ø6.6 / no aplica; resorte 18 / Ø4.5 / Ø3.7 (alambre 0.4); cartucho 98.1 / Ø6.0 / no aplica;
+   clip 45 / ancho 4.0 / espesor 0.8.
+   Debajo de la tabla, agrega un párrafo con las fuentes (ISO 12757-1:2017 Tabla 3; ficha Parker Jotter
+   129 mm, Ø9.6, 15 g; listado comercial de resortes). Las URL están en `medidas.json → fuentes`.
+3. **Texto de "Instrumento/Procedimiento de medición"**: dice que todo se midió con vernier. **No lo borres ni lo
+   reescribas por tu cuenta.** Pregúntale al usuario si quiere dejarlo así o agregar una nota de que las medidas
+   se contrastaron con la norma ISO y la ficha comercial.
+4. **"Modelado 2D en Solid Edge → Procedimiento"**: ajústalo a lo que realmente se hizo: medio perfil en el plano
+   frontal, eje de revolución como línea de construcción, relaciones horizontal/vertical, revolución de 360°,
+   helicoide para el resorte, extrusión para el clip y corona de dientes extruida para la leva. Cambia la lista de archivos
+   por los nombres reales: d3_cuerpo_superior.par, d3_cuerpo_inferior.par, d3_pulsador.par, d3_leva.par,
+   d3_resorte.par, d3_cartucho.par, d3_clip.par.
+5. **Capturas**: reemplaza cada párrafo `[Inserta aquí la captura de pantalla del boceto del <pieza> en Solid Edge]`
+   por las imágenes `d3_<pieza>_boceto.png` y `d3_<pieza>_3d.png` (ancho 16 cm, centradas, con un pie
+   "Figura N. <pieza> en Solid Edge"). Agrega un Heading2 **Leva** con sus capturas después de Pulsador.
+6. **No toques** los placeholders de fotos reales, bocetos a mano, la portada ni los datos del alumno. Esos los llena el usuario.
+7. **Índice**: el Word solo tiene el texto "Índice". Inserta debajo un campo TOC (`TOC \o "1-2" \h \z \u`) y
+   avísale al usuario que en Word presione clic derecho → Actualizar campo (o F9) para que se llene.
+8. Guarda sobre `Practica_Boligrafo_Retractil.docx` y verifica que abre: relee el docx con python-docx y lista
+   los encabezados y el número de imágenes.
+9. Al final, muéstrale al usuario un resumen de cada cambio que hiciste en el Word.
